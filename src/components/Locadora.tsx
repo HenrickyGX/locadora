@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { DataGrid, GridCellParams, GridColDef } from "@mui/x-data-grid";
 import { TextField, Button } from "@mui/material";
-import { PlusCircle } from "lucide-react";
+import { Delete, PlusCircle } from "lucide-react";
 import "./styles.css";
+import { Edit } from "@mui/icons-material";
 
 interface Carro {
   id: number;
@@ -20,6 +21,7 @@ const Locadora = () => {
   const [ano, setAno] = useState("");
   const [capacidade, setCapacidade] = useState("");
   const [potencia, setPotencia] = useState("");
+  const [nextId, setNextId] = useState(1);
 
   useEffect(() => {
     const carrosSalvos = localStorage.getItem("carros");
@@ -49,6 +51,14 @@ const Locadora = () => {
     setAno("");
     setCapacidade("");
     setPotencia("");
+    setNextId(nextId + 1);
+  };
+
+
+  //deleta o carro do data grid 
+  const handleDeleteClick = (params: GridCellParams) => {
+    const { id } = params.row;
+    setCarros((prevCarros) => prevCarros.filter((carro) => carro.id !== id));
   };
 
   const columns: GridColDef[] = [
@@ -58,6 +68,23 @@ const Locadora = () => {
     { field: "ano", headerName: "Ano", width: 150 },
     { field: "capacidade", headerName: "Capacidade", width: 150 },
     { field: "potencia", headerName: "Potencia", width: 150 },
+    {
+      field: "excluir",
+      headerName: "Excluir",
+      width: 100,
+      sortable: false,
+      renderCell: (params: GridCellParams) => (
+        <Button
+          variant="outlined"
+          color="secondary"
+          size="small"
+          onClick={() => handleDeleteClick(params)}
+        >
+          <Delete />
+        </Button>
+      ),
+    },
+  
   ];
 
   return (
