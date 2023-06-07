@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { Box, TextField, Button, Card, Container } from "@mui/material";
-import { Plus } from "lucide-react";
+import { TextField, Button } from "@mui/material";
+import { PlusCircle } from "lucide-react";
 import "./styles.css";
+
 interface Carro {
   id: number;
   marca: string;
@@ -93,7 +94,7 @@ const Locadora = () => {
           />
 
           <Button type="submit" variant="contained" color="primary">
-            <Plus />
+            <PlusCircle />
             Adicionar Veículo
           </Button>
         </form>
