@@ -3,7 +3,7 @@ import { DataGrid, GridCellParams, GridColDef } from "@mui/x-data-grid";
 import { TextField, Button } from "@mui/material";
 import { Delete, PlusCircle } from "lucide-react";
 import "./styles.css";
-import { Edit } from "@mui/icons-material";
+
 
 interface Carro {
   id: number;
