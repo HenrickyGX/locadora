@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { TextField, Button } from "@mui/material";
 import { PlusCircle } from "lucide-react";
@@ -14,12 +14,24 @@ interface Carro {
 }
 
 const Locadora = () => {
-  const [carros, setCarros] = useState<Carro[]>([]);
+  const [carros, setCarros] = useState<Carro[]>(JSON.parse(localStorage.getItem('carros') || ""));
   const [marca, setMarca] = useState("");
   const [modelo, setModelo] = useState("");
   const [ano, setAno] = useState("");
   const [capacidade, setCapacidade] = useState("");
   const [potencia, setPotencia] = useState("");
+
+  useEffect(() => {
+    const carrosSalvos = localStorage.getItem("carros");
+    if (carrosSalvos) {
+      setCarros(JSON.parse(carrosSalvos));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("carros", JSON.stringify(carros));
+  }, [carros]);
+
 
   const handleFormSubmit = (event: React.FormEvent) => {
     event.preventDefault();
